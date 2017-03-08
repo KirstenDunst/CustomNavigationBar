@@ -27,12 +27,11 @@
 }
 - (void)createView{
     label = [[UILabel alloc]init];
-    label.center = self.center;
+    label.center = CGPointMake(_Frame.size.width/2, _Frame.size.height/2);
     label.textAlignment = 1;
     [self addSubview:label];
     
     self.menuButton = [UIButton buttonWithType:UIButtonTypeSystem];
-   
     self.menuButton.frame = CGRectMake(0, 0, 100, _Frame.size.height);
     [self addSubview:self.menuButton];
     
@@ -41,11 +40,10 @@
     if (titleStr != _titleStr) {
         _titleStr = titleStr;
     }
-     [self.menuButton setTitle:[NSString stringWithFormat:@"<%@",titleStr] forState:UIControlStateNormal];
-    
     label.text = titleStr;
     CGSize size = [label sizeThatFits:CGSizeMake(0, _Frame.size.height)];
     label.bounds = CGRectMake(0, 0, size.width, size.height);
+    
 }
 
 

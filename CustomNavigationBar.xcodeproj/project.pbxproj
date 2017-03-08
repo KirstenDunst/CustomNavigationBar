@@ -334,6 +334,7 @@
 				1F594A591E6FA5CD00B719C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -9,16 +9,25 @@
 #import "ICNavigationController.h"
 #import "ICHeadView.h"
 
-@interface ICNavigationController ()
+
+@interface ICNavigationController ()<UINavigationControllerDelegate>
 @property(nonatomic, strong)ICHeadView *headerView;
+
+@property (nonatomic, weak) id PopDelegate;
 
 @end
 
 @implementation ICNavigationController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.PopDelegate = self.interactivePopGestureRecognizer.delegate;
+    self.delegate = self;
+    
     
     [self.navigationBar removeFromSuperview];
     self.navigationController.navigationBarHidden = YES;
@@ -26,29 +35,56 @@
     [self.headerView.menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     self.headerView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.headerView];
+    
 }
 
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    self.headerView.titleStr = [self.viewControllers lastObject].title;
+    if (self.viewControllers.count>1) {
+        UIViewController *viewContro = [self.viewControllers objectAtIndex:self.viewControllers.count-2];
+        NSString *str = viewContro.title;
+        if (str.length==0) {
+           str = @"返回";
+        }
+        
+        [self.headerView.menuButton setTitle:[NSString stringWithFormat:@"<%@",str] forState:UIControlStateNormal];
+    }else{
+        [self.headerView.menuButton setTitle:@"" forState:UIControlStateNormal];
+    }
+    
+}
+
+//- (void)backBarButtonItemAction
+//{
+//    [self popViewControllerAnimated:YES];
+//}
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    if (viewController == self.viewControllers[0]) {
+//        self.interactivePopGestureRecognizer.delegate = self.PopDelegate;
+//    }else{
+//        self.interactivePopGestureRecognizer.delegate = nil;
+//    }
+//}
 
 - (void)showMenu:(UIButton *)sender{
     [super popViewControllerAnimated:YES];
-    NSLog(@">>>>>>>>>>>>%lu",(unsigned long)self.viewControllers.count);
-    if (self.viewControllers.count == 1) {
-        [self.headerView.menuButton setTitle:@"" forState:UIControlStateNormal];
-    }
 }
 
--(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    NSString *lastStr;
     if (self.viewControllers.count>0) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
-    self.headerView.titleStr = lastStr;
-    NSLog(@">>>>>>>>>>>>>>>>>%@>>>>>>>>>>>>>>>>%@??????????????%lu",viewController.title,self.navigationController.title,(unsigned long)self.viewControllers.count);
     [super pushViewController:viewController animated:animated];
-    lastStr = self.title;
-    
 }
+
 
 
 

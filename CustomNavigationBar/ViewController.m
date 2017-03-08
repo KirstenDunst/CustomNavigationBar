@@ -19,6 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.title = @"第一界面";
+    
     UIButton *myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     myCreateButton.frame = CGRectMake(0, 0, 100, 100);
     [myCreateButton setBackgroundColor:[UIColor grayColor]];
