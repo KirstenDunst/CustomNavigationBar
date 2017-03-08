@@ -13,7 +13,7 @@
 @interface ICNavigationController ()<UINavigationControllerDelegate>
 @property(nonatomic, strong)ICHeadView *headerView;
 
-@property (nonatomic, weak) id PopDelegate;
+//@property (nonatomic, weak) id PopDelegate;
 
 @end
 
@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.PopDelegate = self.interactivePopGestureRecognizer.delegate;
+//    self.PopDelegate = self.interactivePopGestureRecognizer.delegate;
     self.delegate = self;
     
     
@@ -79,12 +79,13 @@
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    
     if (self.viewControllers.count>0) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
     [super pushViewController:viewController animated:animated];
+    
 }
-
 
 
 
