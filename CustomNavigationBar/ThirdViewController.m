@@ -20,8 +20,21 @@
     self.title = @"第三界面";
     self.view.backgroundColor = [UIColor cyanColor];
     
+    self.navigationController.navigationBarHidden = YES;
+    
+    UIButton *myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    myCreateButton.frame = CGRectMake(0, 0, 100, 100);
+    [myCreateButton setBackgroundColor:[UIColor grayColor]];
+    [myCreateButton setTitle:@"返回" forState:UIControlStateNormal];
+    [myCreateButton addTarget:self action:@selector(buttonChoose:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:myCreateButton];
+    
+    
 }
-
+- (void)buttonChoose:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -77,6 +77,15 @@
 }
 
 
+- (void)setNavigationBarHidden:(BOOL)navigationBarHidden{
+    if (navigationBarHidden) {
+        self.headerView.hidden = YES;
+    }else{
+        self.headerView.hidden = NO;
+    }
+}
+
+
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     
