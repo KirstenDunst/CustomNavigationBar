@@ -20,7 +20,7 @@
     self.title = @"第三界面";
     self.view.backgroundColor = [UIColor cyanColor];
     
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     
     UIButton *myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     myCreateButton.frame = CGRectMake(0, 0, 100, 100);
@@ -29,6 +29,8 @@
     [myCreateButton addTarget:self action:@selector(buttonChoose:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:myCreateButton];
     
+    
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]initWithTitle:@"测试1" style:UIBarButtonItemStylePlain target:self action:@selector(changeOne)],[[UIBarButtonItem alloc]initWithTitle:@"测试2" style:UIBarButtonItemStylePlain target:self action:@selector(changeTwo)]].copy;
     
 }
 - (void)buttonChoose:(UIButton *)sender{
@@ -39,6 +41,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+- (void)changeOne{
+    NSLog(@"右侧测试按钮1点击了");
+}
+- (void)changeTwo{
+     NSLog(@"右侧测试按钮2点击了");
+}
+
+
+
+
 
 /*
 #pragma mark - Navigation

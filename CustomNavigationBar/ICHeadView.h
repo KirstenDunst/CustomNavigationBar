@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class UIBarButtonItem;
 
 @interface ICHeadView : UIView
 
-@property(nonatomic, copy)NSString *titleStr;
-@property(nonatomic, strong)UIButton *menuButton;
+@property(nullable,nonatomic, copy)NSString *titleStr;
+@property(nullable,nonatomic, strong)UIButton *menuButton;
+
+
+
+//左边的按钮集
+@property(nullable,nonatomic,copy) NSArray<UIBarButtonItem *> *leftBarButtonItems;
+//右边的按钮集
+@property(nullable,nonatomic,copy) NSArray<UIBarButtonItem *> *rightBarButtonItems;
 
 @end

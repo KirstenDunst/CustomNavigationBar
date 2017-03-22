@@ -51,18 +51,27 @@
         if (str.length==0) {
            str = @"返回";
         }
-        
         [self.headerView.menuButton setTitle:[NSString stringWithFormat:@"<%@",str] forState:UIControlStateNormal];
     }else{
         [self.headerView.menuButton setTitle:@"" forState:UIControlStateNormal];
     }
     
+     UIViewController *viewContr = [self.viewControllers objectAtIndex:self.viewControllers.count-1];
+    if (viewContr.navigationItem.leftBarButtonItems) {
+        self.headerView.leftBarButtonItems = viewContr.navigationItem.leftBarButtonItems;
+    }else if (viewContr.navigationItem.rightBarButtonItems){
+        self.headerView.rightBarButtonItems = viewContr.navigationItem.rightBarButtonItems;
+    }else{
+        self.headerView.leftBarButtonItems = @[].copy;
+        self.headerView.rightBarButtonItems = @[].copy;
+    }
 }
 
-//- (void)backBarButtonItemAction
-//{
-//    [self popViewControllerAnimated:YES];
-//}
+- (void)backBarButtonItemAction
+{
+    [self popViewControllerAnimated:YES];
+  
+}
 //- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 //{
 //    if (viewController == self.viewControllers[0]) {
