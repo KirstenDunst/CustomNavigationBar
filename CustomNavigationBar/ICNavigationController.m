@@ -10,6 +10,8 @@
 #import "ICHeadView.h"
 
 
+#define DEFAULTBACKCOLOR [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:0.6]
+
 @interface ICNavigationController ()<UINavigationControllerDelegate>
 @property(nonatomic, strong)ICHeadView *headerView;
 
@@ -33,7 +35,7 @@
     self.navigationController.navigationBarHidden = YES;
     self.headerView = [[ICHeadView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
     [self.headerView.menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-    self.headerView.backgroundColor = [UIColor redColor];
+    self.headerView.backgroundColor = DEFAULTBACKCOLOR;
     [self.view addSubview:self.headerView];
     
 }
@@ -44,6 +46,7 @@
 //}
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    //默认返回按钮显示标题
     self.headerView.titleStr = [self.viewControllers lastObject].title;
     if (self.viewControllers.count>1) {
         UIViewController *viewContro = [self.viewControllers objectAtIndex:self.viewControllers.count-2];
@@ -56,6 +59,7 @@
         [self.headerView.menuButton setTitle:@"" forState:UIControlStateNormal];
     }
     
+    //左右按钮集判别
      UIViewController *viewContr = [self.viewControllers objectAtIndex:self.viewControllers.count-1];
     if (viewContr.navigationItem.leftBarButtonItems) {
         self.headerView.leftBarButtonItems = viewContr.navigationItem.leftBarButtonItems;
@@ -67,6 +71,16 @@
     }else{
         self.headerView.rightBarButtonItems = @[].copy;
     }
+    
+    //更换导航条的背景颜色
+    if (viewContr.navigationController.navigationBar.barTintColor) {
+        self.headerView.backgroundColor = viewContr.navigationController.navigationBar.barTintColor;
+    }else{
+        self.headerView.backgroundColor = DEFAULTBACKCOLOR;
+    }
+    
+    
+    
     
 }
 

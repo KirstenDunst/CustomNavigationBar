@@ -29,7 +29,7 @@
     [myCreateButton addTarget:self action:@selector(buttonChoose:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:myCreateButton];
     
-    
+     self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
 }
 
 - (void)buttonChoose:(UIButton *)sender{
