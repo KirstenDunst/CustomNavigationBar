@@ -33,7 +33,7 @@
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]initWithTitle:@"测试1" style:UIBarButtonItemStylePlain target:self action:@selector(changeOne)],[[UIBarButtonItem alloc]initWithTitle:@"测试2" style:UIBarButtonItemStylePlain target:self action:@selector(changeTwo)]].copy;
     
     
-    self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc]initWithTitle:@"测试左1" style:UIBarButtonItemStylePlain target:self action:@selector(changeLeftOne)]].copy;
+    self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc]initWithTitle:@"测试左1" style:UIBarButtonItemStylePlain target:self action:@selector(changeLeftOne)],[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"1.jpg"] style:UIBarButtonItemStylePlain target:self action:@selector(pictureTap)]].copy;
 }
 - (void)buttonChoose:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -42,6 +42,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)pictureTap{
+    NSLog(@"左侧图片点击了");
 }
 
 - (void)changeLeftOne{

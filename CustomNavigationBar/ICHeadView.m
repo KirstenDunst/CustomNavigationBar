@@ -78,11 +78,11 @@ typedef enum :NSInteger{
                 size = [myCreateButton sizeThatFits:CGSizeMake(0, _Frame.size.height)];
             }else if (buttonItem.image){
                 myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                [myCreateButton setImage:buttonItem.image forState:UIControlStateNormal];
-                size = buttonItem.image.size;
+                size = CGSizeMake((buttonItem.image.size.width/buttonItem.image.size.height)*(size.height), size.height);
+                [myCreateButton setImage:[self OriginImage:buttonItem.image scaleToSize:size] forState:UIControlStateNormal];
             }
-            bgView.frame = CGRectMake(0, 0, border+size.width, size.height);
-            myCreateButton.frame = CGRectMake(border, 8, size.width, size.height);
+            bgView.frame = CGRectMake(0, 0, border+size.width, _Frame.size.height);
+            myCreateButton.frame = CGRectMake(border, (_Frame.size.height-size.height)/2, size.width, size.height);
             [myCreateButton setBackgroundColor:buttonItem.tintColor];
             [myCreateButton addTarget:buttonItem.target action:buttonItem.action forControlEvents:UIControlEventTouchUpInside];
             [bgView addSubview:myCreateButton];
@@ -119,11 +119,11 @@ typedef enum :NSInteger{
                 border = border-size.width-5;
             }else if (buttonItem.image){
                 myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                [myCreateButton setImage:buttonItem.image forState:UIControlStateNormal];
-                size = buttonItem.image.size;
+                size = CGSizeMake((buttonItem.image.size.width/buttonItem.image.size.height)*(size.height), size.height);
+                [myCreateButton setImage:[self OriginImage:buttonItem.image scaleToSize:size] forState:UIControlStateNormal];
                 border = border-size.width-5;
             }
-            myCreateButton.frame = CGRectMake(_Frame.size.width-now, 8, size.width, size.height);
+            myCreateButton.frame = CGRectMake(_Frame.size.width-now, (_Frame.size.height-size.height)/2, size.width, size.height);
             [myCreateButton setBackgroundColor:buttonItem.tintColor];
             [myCreateButton addTarget:buttonItem.target action:buttonItem.action forControlEvents:UIControlEventTouchUpInside];
             [bgView addSubview:myCreateButton];
@@ -135,7 +135,18 @@ typedef enum :NSInteger{
 }
 
 
-
+-(UIImage*) OriginImage:(UIImage *)image scaleToSize:(CGSize)size
+{
+    UIGraphicsBeginImageContext(size);  //size 为CGSize类型，即你所需要的图片尺寸
+    
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;   //返回的就是已经改变的图片
+}
 
 
 /*
