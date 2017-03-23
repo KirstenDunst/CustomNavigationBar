@@ -10,6 +10,7 @@
 
 typedef enum :NSInteger{
     bgViewTags = 10000,
+    
 }tags;
 
 
@@ -53,37 +54,55 @@ typedef enum :NSInteger{
 }
 
 - (void)setLeftBarButtonItems:(NSArray<UIBarButtonItem *> *)leftBarButtonItems{
+    if (_leftBarButtonItems!=leftBarButtonItems) {
+        _leftBarButtonItems = leftBarButtonItems;
+    }
+    
+    UIView *bgView = [self viewWithTag:bgViewTags+1];
+    if (!bgView) {
+        bgView = [[UIView alloc]init];
+        bgView.tag = bgViewTags+1;
+        [self addSubview:bgView];
+    }
     if (leftBarButtonItems.count>0) {
-          self.menuButton.hidden = YES;
-        if (_leftBarButtonItems!=leftBarButtonItems) {
-            _leftBarButtonItems = leftBarButtonItems;
-        }
+        self.menuButton.hidden = YES;
         CGFloat border = 5;
         for (int i = 0; i<_leftBarButtonItems.count; i++) {
             UIBarButtonItem *buttonItem = _leftBarButtonItems[i];
             NSString *str = buttonItem.title;
             UIButton *myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [myCreateButton setTitle:str forState:UIControlStateNormal];
-            CGSize size = [myCreateButton sizeThatFits:CGSizeMake(0, _Frame.size.height)];
-            myCreateButton.frame = CGRectMake(border, 0, size.width, size.height);
+            CGSize size;
+            if (str.length>0) {
+                myCreateButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                [myCreateButton setTitle:str forState:UIControlStateNormal];
+                size = [myCreateButton sizeThatFits:CGSizeMake(0, _Frame.size.height)];
+            }else if (buttonItem.image){
+                myCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                [myCreateButton setImage:buttonItem.image forState:UIControlStateNormal];
+                size = buttonItem.image.size;
+            }
+            bgView.frame = CGRectMake(0, 0, border+size.width, size.height);
+            myCreateButton.frame = CGRectMake(border, 8, size.width, size.height);
             [myCreateButton setBackgroundColor:buttonItem.tintColor];
             [myCreateButton addTarget:buttonItem.target action:buttonItem.action forControlEvents:UIControlEventTouchUpInside];
-            [self addSubview:myCreateButton];
+            [bgView addSubview:myCreateButton];
             border = border+size.width+5;
         }
     }else{
+        [bgView removeFromSuperview];
         self.menuButton.hidden = NO;
     }
 }
 - (void)setRightBarButtonItems:(NSArray<UIBarButtonItem *> *)rightBarButtonItems{
+   
+    if (_rightBarButtonItems!=rightBarButtonItems) {
+        _rightBarButtonItems = rightBarButtonItems;
+    }
     UIView *bgView = [self viewWithTag:bgViewTags];
     if (!bgView) {
         bgView = [[UIView alloc]init];
         bgView.tag = bgViewTags;
         [self addSubview:bgView];
-    }
-    if (_rightBarButtonItems!=rightBarButtonItems) {
-        _rightBarButtonItems = rightBarButtonItems;
     }
     if (_rightBarButtonItems.count>0) {
         CGFloat border = _Frame.size.width-5;

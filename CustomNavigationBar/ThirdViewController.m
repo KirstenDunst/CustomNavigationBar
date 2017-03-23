@@ -32,6 +32,8 @@
     
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc]initWithTitle:@"测试1" style:UIBarButtonItemStylePlain target:self action:@selector(changeOne)],[[UIBarButtonItem alloc]initWithTitle:@"测试2" style:UIBarButtonItemStylePlain target:self action:@selector(changeTwo)]].copy;
     
+    
+    self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc]initWithTitle:@"测试左1" style:UIBarButtonItemStylePlain target:self action:@selector(changeLeftOne)]].copy;
 }
 - (void)buttonChoose:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -42,7 +44,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)changeLeftOne{
+    NSLog(@"左一测试");
+}
 
 - (void)changeOne{
     NSLog(@"右侧测试按钮1点击了");

@@ -59,12 +59,15 @@
      UIViewController *viewContr = [self.viewControllers objectAtIndex:self.viewControllers.count-1];
     if (viewContr.navigationItem.leftBarButtonItems) {
         self.headerView.leftBarButtonItems = viewContr.navigationItem.leftBarButtonItems;
-    }else if (viewContr.navigationItem.rightBarButtonItems){
-        self.headerView.rightBarButtonItems = viewContr.navigationItem.rightBarButtonItems;
     }else{
         self.headerView.leftBarButtonItems = @[].copy;
+    }
+    if (viewContr.navigationItem.rightBarButtonItems){
+        self.headerView.rightBarButtonItems = viewContr.navigationItem.rightBarButtonItems;
+    }else{
         self.headerView.rightBarButtonItems = @[].copy;
     }
+    
 }
 
 - (void)backBarButtonItemAction
